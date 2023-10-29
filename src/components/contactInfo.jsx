@@ -1,11 +1,24 @@
 import ContactInfoSection from "./contactInfoSection"
 
+import {BiBriefcase, BiMap, BiMobileAlt} from 'react-icons/bi'
+
 export default function ContactInfo(){
+
+    const styles = {
+        container: {
+            maxWidth: '50%',
+        },
+        anchor: {
+            color: '#555',
+            textDecoration:'none',
+        },
+    }
+
     return (
-        <div>
+        <div style={styles.container}>
             <ContactInfoSection
                 title='Find us at the office'
-                icon='icon'
+                icon={<BiMap/>}
             >
                 ADSBld Mihail Kogalniceanu, nr.8, <br />
                 7652 Bucharest, <br />
@@ -14,16 +27,16 @@ export default function ContactInfo(){
 
             <ContactInfoSection
                 title='Give us a ring'
-                icon='icon'
+                icon={<BiMobileAlt/>}
             >
                 Michael Jordan <br />
-                <a href="tel:+40762321712">+40 762 321 712</a> <br />
+                <a style={styles.anchor} href="tel:+40762321712">+40 762 321 712</a> <br />
                 Mon - Fri, 8:00 - 22:00
             </ContactInfoSection>
 
             <ContactInfoSection
                 title='Legal Information'
-                icon='icon'
+                icon={<BiBriefcase/>}
             >
                 XYZ <br />
                 VAT &#8226; EN234124SD <br />
