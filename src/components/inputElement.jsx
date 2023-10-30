@@ -1,10 +1,13 @@
 import {FormGroup, Label, Input, FormFeedback, InputGroup, InputGroupText} from 'reactstrap'
 
-export default function InputElement({label, icon, id, type, name, valid, placeholder, feedback, value, onChange}){
+export default function InputElement({label, icon, id, type, name, invalid, placeholder, feedback, value, onChange}){
 
     const styles = {
         inputGroup:{
-            
+            borderStyle:'solid',
+            borderWidth:'2px',
+            borderColor: invalid ? '#ff000077' : '#ddd',
+            borderRadius:'8px'
         },
         inputIcon:{
             backgroundColor:'white',
@@ -15,7 +18,7 @@ export default function InputElement({label, icon, id, type, name, valid, placeh
             border: 'none'
         },
         feedback: {
-            display:'none'
+            display: invalid ? 'block' : 'none'
         },
     }
 
@@ -24,7 +27,7 @@ export default function InputElement({label, icon, id, type, name, valid, placeh
             <Label for={id}>
                 {label}
             </Label>
-            <InputGroup style={styles.inputGroup} className='border border-2 rounded'>
+            <InputGroup style={styles.inputGroup}>
                 <InputGroupText style={styles.inputIcon}>
                     {icon}
                 </InputGroupText>
@@ -33,7 +36,7 @@ export default function InputElement({label, icon, id, type, name, valid, placeh
                     id={id} 
                     type={type} 
                     name={name} 
-                    invalid={valid}
+                    invalid={invalid}
                     value={value}
                     onChange={onChange}
                     placeholder={placeholder}

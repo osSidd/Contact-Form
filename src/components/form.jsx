@@ -1,4 +1,4 @@
-import {Form, FormGroup, Label, Input, Button, FormFeedback} from 'reactstrap'
+import {Form, FormGroup, Label, Input, Button} from 'reactstrap'
 
 import InputElement from './inputElement'
 
@@ -6,8 +6,8 @@ import {BiUserCircle, BiEnvelope, BiMobileAlt} from 'react-icons/bi'
 import useFetch from '../hooks/useFetch'
 
 export default function ContactForm(){
-
-    const { formData, queue, sending, handleChange, handleSubmit } = useFetch()
+    
+    const { formData, queue, sending, validate, handleChange, handleSubmit } = useFetch()
 
     const styles = {
         container: {
@@ -22,6 +22,9 @@ export default function ContactForm(){
         buttonContainer:{
             width:'fit-content',
             margin:'auto'
+        },
+        textarea:{
+            borderColor:'#ddd'
         },
         button: {
             borderRadius: '2rem',
@@ -44,11 +47,11 @@ export default function ContactForm(){
                 icon={<BiUserCircle/>}
                 type='text'
                 name='name'
-                valid={false}
+                invalid={Boolean(validate.name.invalid && formData.name)}
                 value={formData.name}
                 onChange={handleChange}
                 placeholder='Name Here...'
-                feedback='Name must include letters'
+                feedback='Name must include letters only'
             />
 
             <InputElement
@@ -57,7 +60,7 @@ export default function ContactForm(){
                 icon={<BiEnvelope/>}
                 type='email'
                 name='email'
-                valid={false}
+                invalid={Boolean(validate.email.invalid && formData.email)}
                 value={formData.email}
                 onChange={handleChange}
                 placeholder='Email Here...'
@@ -70,7 +73,7 @@ export default function ContactForm(){
                 icon={<BiMobileAlt/>}
                 type='tel'
                 name='phone'
-                valid={false}
+                invalid={Boolean(validate.phone.invalid && formData.phone)}
                 value={formData.phone}
                 onChange={handleChange}
                 placeholder='Number Here...'
@@ -88,7 +91,8 @@ export default function ContactForm(){
                     rows={4}
                     value={formData.message}
                     onChange={handleChange}
-                    className='border-2'
+                    style={styles.textarea}
+                    className='border-2 shadow-none'
                 />
             </FormGroup>
 
@@ -98,7 +102,7 @@ export default function ContactForm(){
 
             <div style={styles.buttonContainer}>
                 <Button
-                    color="primary"
+                    color={sending ? 'info' : 'primary'}
                     type='submit'
                     style={styles.button}
                 >
